@@ -2,30 +2,56 @@ package LinkedList;
 
 public class Main {
     public static void main(String[] args) {
-        Node head = getNode();
+        Node head = getDoublyLinkList();
 
         insert(40, head, 2);
         delete(head, 2);
         traversal(head);
     }
 
-    public static Node getNode() {
+    public static Node getDoublyLinkList() {
+        Result result = getResult();
+
+        Node head = result.n1();
+        result.n1().next = result.n2();
+        result.n2().previous = result.n1();
+        result.n2().next = result.n3();
+        result.n3().previous = result.n2();
+        result.n3().next = result.n4();
+        result.n4().previous = result.n3();
+        result.n4().next = result.n5();
+        result.n5().previous = result.n4();
+        result.n5().next = null;
+        return head;
+    }
+
+    private static Result getResult() {
         Node n1 =  new Node(10);
         Node n2 =  new Node(20);
         Node n3 =  new Node(30);
         Node n4 =  new Node(40);
         Node n5 =  new Node(50);
+        Result result = new Result(n1, n2, n3, n4, n5);
+        return result;
+    }
 
-        Node head = n1;
-        n1.next = n2;
-        n2.previous = n1;
-        n2.next = n3;
-        n3.previous = n2;
-        n3.next = n4;
-        n4.previous = n3;
-        n4.next = n5;
-        n5.previous =n4;
-        n5.next = null;
+    private record Result(Node n1, Node n2, Node n3, Node n4, Node n5) {
+    }
+
+    public static Node getCircularLinkedList(){
+        Result result = getResult();
+        Node head = result.n1();
+
+        result.n1.previous = result.n5();
+        result.n1().next = result.n2();
+        result.n2().previous = result.n1();
+        result.n2().next = result.n3();
+        result.n3().previous = result.n2();
+        result.n3().next = result.n4();
+        result.n4().previous = result.n3();
+        result.n4().next = result.n5();
+        result.n5().previous = result.n4();
+        result.n5().next = result.n1;
         return head;
     }
 

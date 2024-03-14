@@ -2,7 +2,7 @@ package LinkedList;
 
 public class ReverseLinkedList {
     public static void main(String[] args) {
-        Node head = Main.getNode();
+        Node head = Main.getDoublyLinkList();
 
         Main.traversal(head);
         System.out.println("------------------------------");
