@@ -2,19 +2,31 @@ package LinkedList;
 
 public class Main {
     public static void main(String[] args) {
+        Node head = getNode();
+
+        insert(40, head, 2);
+        delete(head, 2);
+        traversal(head);
+    }
+
+    public static Node getNode() {
         Node n1 =  new Node(10);
         Node n2 =  new Node(20);
         Node n3 =  new Node(30);
+        Node n4 =  new Node(40);
+        Node n5 =  new Node(50);
 
         Node head = n1;
         n1.next = n2;
         n2.previous = n1;
         n2.next = n3;
         n3.previous = n2;
-        n3.next = null;
-        insert(40, head, 2);
-        delete(head, 2);
-        traversal(head);
+        n3.next = n4;
+        n4.previous = n3;
+        n4.next = n5;
+        n5.previous =n4;
+        n5.next = null;
+        return head;
     }
 
     public static void delete(Node head, int position) {
