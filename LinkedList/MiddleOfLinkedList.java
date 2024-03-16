@@ -2,7 +2,7 @@ package LinkedList;
 
 public class MiddleOfLinkedList {
     public static void main(String[] args) {
-        Node head = Main.getDoublyLinkList();
+        Node head = Main.getDoublyLinkList(null);
 
         Main.traversal(head);
         Node slow=head, fast = head;

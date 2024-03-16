@@ -2,7 +2,7 @@ package LinkedList;
 
 public class LLCycle {
     public static void main(String[] args) {
-        Node head = Main.getCircularLinkedList();
+        Node head = Main.getCircularLinkedList(null);
         Node slow = head, fast = head;
         while(fast !=null && fast.next !=null){
             fast = fast.next.next;

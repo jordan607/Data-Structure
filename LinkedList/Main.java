@@ -2,57 +2,81 @@ package LinkedList;
 
 public class Main {
     public static void main(String[] args) {
-        Node head = getDoublyLinkList();
+        Node head = getDoublyLinkList(null);
 
         insert(40, head, 2);
         delete(head, 2);
         traversal(head);
     }
 
-    public static Node getDoublyLinkList() {
-        Result result = getResult();
+    public static Node getDoublyLinkList(int[] elements) {
+        Result result = getTestData(elements);
 
-        Node head = result.n1();
-        result.n1().next = result.n2();
-        result.n2().previous = result.n1();
-        result.n2().next = result.n3();
-        result.n3().previous = result.n2();
-        result.n3().next = result.n4();
-        result.n4().previous = result.n3();
-        result.n4().next = result.n5();
-        result.n5().previous = result.n4();
-        result.n5().next = null;
-        return head;
+//        Node head = result.nodes[0];
+//        result.nodes[0].next = result.nodes[1];
+//        result.nodes[1].previous = result.nodes[0];
+//        result.nodes[1].next = result.nodes[2];
+//        result.nodes[2].previous = result.nodes[1];
+//        result.nodes[2].next = result.nodes[3];
+//        result.nodes[3].previous = result.nodes[2];
+//        result.nodes[3].next = result.nodes[4];
+//        result.nodes[4].previous = result.nodes[3];
+//        result.nodes[4].next = null;
+//        return head;
+        Node[] nodes = result.nodes;
+        int n = nodes.length;
+
+        for (int i = 0; i < n - 1; i++) {
+            nodes[i].next = nodes[i + 1];
+            nodes[i + 1].previous = nodes[i];
+        }
+
+        return nodes[0];
     }
 
-    private static Result getResult() {
-        Node n1 =  new Node(10);
-        Node n2 =  new Node(20);
-        Node n3 =  new Node(30);
-        Node n4 =  new Node(40);
-        Node n5 =  new Node(50);
-        Result result = new Result(n1, n2, n3, n4, n5);
+    private static Result getTestData(int[] elements) {
+        if(elements == null || elements.length ==0){
+            Node n1 =  new Node(10);
+            Node n2 =  new Node(20);
+            Node n3 =  new Node(30);
+            Node n4 =  new Node(40);
+            Node n5 =  new Node(50);
+            return new Result(new Node[] {n1,n2,n3,n4,n5});
+        }
+        Node[] nodes = new Node[elements.length];
+        for (int i = 0; i < elements.length; i++) {
+            nodes[i] = new Node(elements[i]);
+        }
+        Result result = new Result(nodes);
         return result;
     }
 
-    private record Result(Node n1, Node n2, Node n3, Node n4, Node n5) {
+    private record Result(Node[] nodes) {
     }
 
-    public static Node getCircularLinkedList(){
-        Result result = getResult();
-        Node head = result.n1();
+    public static Node getCircularLinkedList(int[] elements){
+        Result result = getTestData(null);
 
-        result.n1.previous = result.n5();
-        result.n1().next = result.n2();
-        result.n2().previous = result.n1();
-        result.n2().next = result.n3();
-        result.n3().previous = result.n2();
-        result.n3().next = result.n4();
-        result.n4().previous = result.n3();
-        result.n4().next = result.n5();
-        result.n5().previous = result.n4();
-        result.n5().next = result.n1;
-        return head;
+//        Node head = result.nodes[0];
+//        result.nodes[0].previous = result.nodes[4];
+//        result.nodes[0].next = result.nodes[1];
+//        result.nodes[1].previous = result.nodes[0];
+//        result.nodes[1].next = result.nodes[2];
+//        result.nodes[2].previous = result.nodes[1];
+//        result.nodes[2].next = result.nodes[3];
+//        result.nodes[3].previous = result.nodes[2];
+//        result.nodes[3].next = result.nodes[4];
+//        result.nodes[4].previous = result.nodes[3];
+//        result.nodes[4].next = result.nodes[0];
+//        return head;
+        Node[] nodes = result.nodes;
+        int n = nodes.length;
+        for (int i = 0; i < n; i++) {
+            nodes[i].previous = nodes[(i + n - 1) % n];
+            nodes[i].next = nodes[(i + 1) % n];
+        }
+
+        return nodes[0];
     }
 
     public static void delete(Node head, int position) {
@@ -67,12 +91,24 @@ public class Main {
         current.next = current.next.next;
     }
 
-    public static void traversal(Node head){
+    public static int traversal(Node head){
+        int count = 0;
         while (head!=null){
+            count++;
             System.out.print(head.data+ " ");
             head = head.next;
         }
         System.out.println();
+        return count;
+    }
+
+    public static boolean isEqual(Node head1, Node head2){
+        while (head1!= null && head2!= null){
+            if(head1.data != head2.data) return false;
+            head1 = head1.next;
+            head2 = head2.next;
+        }
+        return true;
     }
     public static void insert(int data, Node head, int position){
         Node in = new Node(data);
