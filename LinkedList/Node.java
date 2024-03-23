@@ -4,6 +4,8 @@ public class Node {
     int data;
     Node next;
     Node previous;
+    Node anotherNext;
+    Node anotherPrevious;
     Node(int data){
         this.data = data;
     }

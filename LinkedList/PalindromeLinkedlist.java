@@ -16,9 +16,9 @@ public class PalindromeLinkedlist {
             head1 =  Main.getDoublyLinkList(arr);
             head2 =  Main.getDoublyLinkList(arr);
         }
-        int c1 = Main.traversal(head1);
+        int c1 = Main.traversal(head1, -1);
         Node newHead = ReverseLinkedList.reverseLL(head1);
-        int c2 = Main.traversal(newHead);
+        int c2 = Main.traversal(newHead, -1);
         if(c1!= c2) return false;
         return Main.isEqual(newHead, head2);
     }

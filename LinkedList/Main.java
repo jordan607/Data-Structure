@@ -1,12 +1,14 @@
 package LinkedList;
 
+import java.sql.Statement;
+
 public class Main {
     public static void main(String[] args) {
         Node head = getDoublyLinkList(null);
 
         insert(40, head, 2);
         delete(head, 2);
-        traversal(head);
+        traversal(head, -1);
     }
 
     public static Node getDoublyLinkList(int[] elements) {
@@ -32,6 +34,57 @@ public class Main {
         }
 
         return nodes[0];
+    }
+
+    public static Node getNodeWithData(Node head, int nodeData){
+        while(head!=null){
+            if(head.data == nodeData) break;
+            else head = head.next;
+        }
+        return head;
+    }
+
+    public static Node getNodeWithPosition(Node head, int position){
+        int count =0;
+        while(head!=null){
+            if(position == count) break;
+            else head = head.next;
+            count++;
+        }
+        return head;
+    }
+
+    public static Node getLastNode(Node head){
+        while (head.next!=null) head = head.next;
+        return head;
+    }
+
+    public static Node setNode(Node head, int data, int position){
+        int count =0;
+        while (head!=null){
+            if(count == position) {
+                head.data = data;
+                break;
+            }
+            count++;
+            head = head.next;
+        }
+        return head;
+    }
+
+    //Need to fix this and traversal(Node head, int pos) at line 147 for creating branches from a single linked list :: "--<=="
+    public static void attachTwoLinkedListsForward(Node ref, Node attach, int position){
+        Node targetNode = getNodeWithPosition(ref, position);
+        targetNode.anotherNext = attach;
+        attach.previous = targetNode;
+    }
+
+    //Mearging two linked list :: "===>---"
+    public static void attachTwoLinkedListBackwards(Node ref, Node attach, int position){
+        Node targetNode = getNodeWithPosition(ref, position);
+        Node lastAttachNode = getLastNode(attach);
+        lastAttachNode.next = targetNode;
+        targetNode.anotherPrevious = lastAttachNode;
     }
 
     private static Result getTestData(int[] elements) {
@@ -91,12 +144,13 @@ public class Main {
         current.next = current.next.next;
     }
 
-    public static int traversal(Node head){
+    public static int traversal(Node head, int pos){
         int count = 0;
         while (head!=null){
+//            if(pos != -1 && pos == count) head = head.anotherNext;
+//            else
+                head = head.next;
             count++;
-            System.out.print(head.data+ " ");
-            head = head.next;
         }
         System.out.println();
         return count;
