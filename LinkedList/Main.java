@@ -146,9 +146,10 @@ public class Main {
 
     public static int traversal(Node head, int pos){
         int count = 0;
-        while (head!=null){
+        while (null != head){
 //            if(pos != -1 && pos == count) head = head.anotherNext;
 //            else
+                System.out.print(head.data+" ");
                 head = head.next;
             count++;
         }
